@@ -12,6 +12,8 @@ from .composer_scan import scanFile
 @click.command()
 def main(f, v):
     """Console script for composer_scan."""
+    if 'CI' in os.environ:
+        ctx.color = True
     try:
         with open(f, 'r') as input:
             composer_obj = json.load(input)
