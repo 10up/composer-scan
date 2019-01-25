@@ -11,7 +11,10 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', ]
+requirements = ['Click>=6.0',
+                'requests',
+
+]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -36,7 +39,7 @@ setup(
     description="Scan composer.lock file to find vulnerable WordPress plugins/themes using https://wpvulndb.com/ api",  # noqa
     entry_points={
         'console_scripts': [
-            'composer_scan=composer_scan.cli:main',
+            'composer-scan=composer_scan.cli:main',
         ],
     },
     install_requires=requirements,
