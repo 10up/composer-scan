@@ -34,8 +34,9 @@ def scanFile(composer_obj, verbose):
                 r.raise_for_status()
             except Exception:
                 if r.status_code == 404:
-                    click.secho("{} not found on WPVulnDB".format(name), fg="yellow")
-                    click.echo()
+                    if verbose:
+                        click.secho("{} not found on WPVulnDB".format(name), fg="yellow")
+                        click.echo()
                     continue
                 else:
                     click.secho("API request for {} failed".format(name), fg="yellow")
