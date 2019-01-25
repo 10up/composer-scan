@@ -1,0 +1,63 @@
+# -*- coding: utf-8 -*-
+
+"""Main module."""
+
+import json
+import re
+import requests
+from distutils.version import LooseVersion
+import click
+
+
+_TOKEN = "XMRS3eYw6eiGoWhOOaLC2EsqGHn7UjbSeIpFAwYd2lY"
+headers = {
+    "Authorization": "Token token={}".format(_TOKEN)
+}
+
+
+def scanFile(composer_obj):
+
+    globalFound = 0
+
+    for package in composer_obj['packages']:
+        if re.match("wordpress-[plugin|theme]", package["type"]):
+            _type = package["type"].split("-")[-1]
+            name = package["name"].split("/")[-1]
+            version = package['version']
+            click.echo("{} - {} - {}".format(name, version, _type))
+
+            try:
+                r = requests.get("https://wpvulndb.com/api/v3/{}/{}".format(
+                    _type+"s",
+                    name
+                ), headers=headers)
+                r.raise_for_status()
+            except Exception:
+                if r.status_code == 404:
+                    click.secho("{} not found on WPVulnDB".format(name), fg="yellow")
+                    click.echo()
+                    continue
+                else:
+                    click.secho("API request for {} failed".format(name), fg="yellow")
+                    click.echo(r.status_code)
+                    click.echo()
+                    continue
+
+            if len(json.loads(r.text)[name]['vulnerabilities']) > 0:
+                found = 0
+                for v in json.loads(r.text)[name]['vulnerabilities']:
+                    if not LooseVersion(version) >= LooseVersion(v["fixed_in"]):
+                        click.secho("VULNERABILITY FOUND!!!", fg="red")
+                        click.echo("{}".format(v["title"]))
+                        click.echo("https://wpvulndb.com/vulnerabilities/{}".format(v["id"]))
+                        # set found to 1 so we can exit
+                        found = 1
+                if not found:
+                    click.secho("{} {} has reported vulnerabilities, but they are all fixed in version {}".format(_type, name, version), fg="green")
+                else:
+                    globalFound = 1
+            else:
+                click.secho("No vulnerabilities found for {} {}".format(_type, name), fg="green")
+            click.echo()
+
+    return globalFound
