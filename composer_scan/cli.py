@@ -8,13 +8,18 @@ from .composer_scan import scanFile
 import os
 
 @click.command()
-@click.option('-f', help="composer.lock file to scan, defaults to file in current directory", type=click.Path(exists=True), default="composer.lock")
+@click.option('-f', help="composer.lock file to scan, defaults to file in current directory", type=click.Path(exists=False), default="composer.lock")
 @click.option('-v', help="Verbose output, show status of all plugins, if not set only outputs found vulnerabilities", is_flag=True)
 @click.pass_context
 def main(ctx, f, v):
     """Console script for composer_scan."""
     if 'CI' in os.environ:
         ctx.color = True
+
+    if not os.path.exists(f):
+        click.echo("{} does not exist, exiting scan".format(f))
+        sys.exit(0)
+
     try:
         with open(f, 'r') as input:
             composer_obj = json.load(input)
