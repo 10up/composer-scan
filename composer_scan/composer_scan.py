@@ -9,13 +9,14 @@ from distutils.version import LooseVersion
 import click
 
 
+
 _TOKEN = "XMRS3eYw6eiGoWhOOaLC2EsqGHn7UjbSeIpFAwYd2lY"
 headers = {
     "Authorization": "Token token={}".format(_TOKEN)
 }
 
 
-def scanFile(composer_obj):
+def scanFile(composer_obj, verbose):
 
     globalFound = 0
 
@@ -24,7 +25,6 @@ def scanFile(composer_obj):
             _type = package["type"].split("-")[-1]
             name = package["name"].split("/")[-1]
             version = package['version']
-            click.echo("{} - {} - {}".format(name, version, _type))
 
             try:
                 r = requests.get("https://wpvulndb.com/api/v3/{}/{}".format(
@@ -45,19 +45,30 @@ def scanFile(composer_obj):
 
             if len(json.loads(r.text)[name]['vulnerabilities']) > 0:
                 found = 0
+                titlePrint = False
                 for v in json.loads(r.text)[name]['vulnerabilities']:
                     if not LooseVersion(version) >= LooseVersion(v["fixed_in"]):
+                        if not titlePrint:
+                            click.echo("{} - {} - {}".format(name, version, _type))
+                            titlePrint = True
                         click.secho("VULNERABILITY FOUND!!!", fg="red")
                         click.echo("{}".format(v["title"]))
                         click.echo("https://wpvulndb.com/vulnerabilities/{}".format(v["id"]))
                         # set found to 1 so we can exit
                         found = 1
                 if not found:
-                    click.secho("{} {} has reported vulnerabilities, but they are all fixed in version {}".format(_type, name, version), fg="green")
+                    if verbose:
+                        click.echo("{} - {} - {}".format(name, version, _type))
+                        click.secho("{} {} has reported vulnerabilities, but they are all fixed in version {}".format(_type, name, version), fg="green")
+                        click.echo()
                 else:
                     globalFound = 1
+                    click.echo()
+
             else:
-                click.secho("No vulnerabilities found for {} {}".format(_type, name), fg="green")
-            click.echo()
+                if verbose:
+                    click.echo("{} - {} - {}".format(name, version, _type))
+                    click.secho("No vulnerabilities found for {} {}".format(_type, name), fg="green")
+                    click.echo()
 
     return globalFound

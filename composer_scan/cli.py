@@ -8,8 +8,9 @@ from .composer_scan import scanFile
 
 
 @click.option('-f', help="composer.lock file to scan, defaults to file in current directory", type=click.Path(exists=True), default="composer.lock")
+@click.option('-v', help="Verbose output, show status of all plugins, if not set only outputs found vulnerabilities", default=False)
 @click.command()
-def main(f):
+def main(f, v):
     """Console script for composer_scan."""
     try:
         with open(f, 'r') as input:
@@ -20,7 +21,7 @@ def main(f):
         click.echo(e)
         sys.exit(1)
 
-    found = scanFile(composer_obj)
+    found = scanFile(composer_obj, v)
     sys.exit(found)
 
 
