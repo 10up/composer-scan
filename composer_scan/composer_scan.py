@@ -9,8 +9,6 @@ from distutils.version import LooseVersion
 import click
 
 
-
-_TOKEN = "XMRS3eYw6eiGoWhOOaLC2EsqGHn7UjbSeIpFAwYd2lY"
 headers = {
     "Authorization": "Token token={}".format(_TOKEN)
 }

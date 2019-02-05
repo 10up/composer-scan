@@ -11,7 +11,7 @@ import os
 @click.option('-f', help="composer.lock file to scan, defaults to file in current directory", type=click.Path(exists=False), default="composer.lock")
 @click.option('-v', help="Verbose output, show status of all plugins, if not set only outputs found vulnerabilities", is_flag=True)
 @click.option('--no-fail', help="even if vulnerabilities are found, exit 0 (emergency option to not fail CI pipelines)", envvar="COMPOSER_SCAN_NO_FAIL", is_flag=True)
-@click.option('--token', help="WPVulnDB api token", envvar="WPVULNDB_API_TOKEN")
+@click.option('--token', help="WPVulnDB api token or set as envrionment variable: WPVULNDB_API_TOKEN", envvar="WPVULNDB_API_TOKEN", required=True)
 @click.pass_context
 def main(ctx, f, v, no_fail, token):
     """Console script for composer_scan."""
