@@ -31,7 +31,7 @@ def main(ctx, f, v, no_fail, token):
         click.echo(e)
         sys.exit(1)
 
-    found = scanFile(composer_obj, v)
+    found = scanFile(composer_obj, v, token)
 
     if no_fail:
         click.secho("no-fail flag set, exiting 0...")

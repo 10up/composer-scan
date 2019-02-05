@@ -9,12 +9,11 @@ from distutils.version import LooseVersion
 import click
 
 
-headers = {
-    "Authorization": "Token token={}".format(_TOKEN)
-}
+def scanFile(composer_obj, verbose, token):
 
-
-def scanFile(composer_obj, verbose):
+    headers = {
+        "Authorization": "Token token={}".format(token)
+    }
 
     globalFound = 0
 
