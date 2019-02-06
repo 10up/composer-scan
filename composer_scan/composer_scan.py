@@ -45,15 +45,21 @@ def scanFile(composer_obj, verbose, token):
                 found = 0
                 titlePrint = False
                 for v in json.loads(r.text)[name]['vulnerabilities']:
-                    if not LooseVersion(version) >= LooseVersion(v["fixed_in"]):
+                    try:
+                        if not LooseVersion(version) >= LooseVersion(v["fixed_in"]):
+                            if not titlePrint:
+                                click.echo("{} - {} - {}".format(name, version, _type))
+                                titlePrint = True
+                            click.secho("VULNERABILITY FOUND!!!", fg="red")
+                            click.echo("{}".format(v["title"]))
+                            click.echo("https://wpvulndb.com/vulnerabilities/{}".format(v["id"]))
+                            # set found to 1 so we can exit
+                            found = 1
+                    except TypeError:
                         if not titlePrint:
                             click.echo("{} - {} - {}".format(name, version, _type))
                             titlePrint = True
-                        click.secho("VULNERABILITY FOUND!!!", fg="red")
-                        click.echo("{}".format(v["title"]))
-                        click.echo("https://wpvulndb.com/vulnerabilities/{}".format(v["id"]))
-                        # set found to 1 so we can exit
-                        found = 1
+                        click.secho("Cannot properly compare versions {} (from composer.lock) to {} for https://wpvulndb.com/vulnerabilities/{}".format(version, v["fixed_in"], v["id"]))
                 if not found:
                     if verbose:
                         click.echo("{} - {} - {}".format(name, version, _type))
