@@ -1,0 +1,12 @@
+image: docker.10up.com/jason.dewitt/py-test-container:1.0
+
+stages:
+- test
+
+test:
+  stage: test
+  script:
+    - pip install tox tox-pyenv
+    - pyenv versions
+    - tox
+
