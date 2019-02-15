@@ -44,7 +44,7 @@ setup(
     },
     install_requires=requirements,
     license="MIT license",
-    long_description_content_type="text/markdown"
+    long_description_content_type="text/markdown",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='composer_scan',
