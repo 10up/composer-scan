@@ -5,7 +5,7 @@ Scan composer.lock file to find vulnerable WordPress plugins/themes using https:
 
 ## Requirements
 
-Supports most major python versions since 2.7
+Supports most major python versions since 2.7, see `tox.ini` for tested versions
 
 Required python packages (will automatically be installed by setup.py)
 
