@@ -9,22 +9,7 @@ from click.testing import CliRunner
 
 from composer_scan import composer_scan
 from composer_scan import cli
-
-
-@pytest.fixture
-def response():
-    """Sample pytest fixture.
-
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
-
-
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+from lock_tests import lock_tests
 
 
 def test_command_line_interface():
@@ -33,3 +18,18 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert 'Show this message and exit.' in help_result.output
+
+
+
+def test_plugins():
+    runner = CliRunner()
+    for lock_test in lock_tests:
+        with runner.isolated_filesystem():
+            with open("composer.lock", "w") as lockfile:
+                lockfile.write(lock_test["file_contents"])
+
+            result = runner.invoke(cli.main, lock_test["args"])
+            assert lock_test["return_code"] == result.exit_code
+            assert lock_test["text_search"] in result.output
+            assert lock_test["vuln_url"] in result.output
+
