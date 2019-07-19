@@ -40,7 +40,7 @@ Options:
                 outputs found vulnerabilities
   --no-fail     even if vulnerabilities are found, exit 0 (emergency option to
                 not fail CI pipelines)
-  --token TEXT  WPVulnDB api token or set as envrionment variable:
+  --token TEXT  WPVulnDB API token or set as envrionment variable:
                 WPVULNDB_API_TOKEN  [required]
   --help        Show this message and exit.
 ```
