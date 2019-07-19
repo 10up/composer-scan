@@ -1,25 +1,23 @@
 # WordPress Composer Scan
 
-> Scan composer.lock file to find vulnerable WordPress plugins/themes using https://wpvulndb.com/ api"
+> Scans your composer.lock file to find vulnerable WordPress plugins and themes using the [WPScan Vulnerability Database](https://wpvulndb.com) API
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![MIT License](https://img.shields.io/github/license/10up/composer-scan.svg)](https://github.com/10up/composer-scan/blob/master/LICENSE.md)
 
 ## Requirements
 
-Supports most major python versions since 2.7, see `tox.ini` for tested versions
-
-Required python packages (will automatically be installed by setup.py)
+- API key from the [WPScan Vulnerability Database](https://wpvulndb.com)
+- Supports most major Python versions since 2.7, see [`tox.ini`](https://github.com/10up/composer-scan/blob/update/docs/tox.ini) for tested versions
+- Required Python packages (will automatically be installed by setup.py):
 
 ```:text
 requests
 click
 ```
 
-Also requires an API key from [WPVulnDB](https://wpvulndb.com/)
+## Installation
 
-## Install
-
-Clone this repo and install with pip
+Clone this repo and install with pip:
 
 ```:bash
 git clone git@gitlab.10up.com:10up-systems/ci-tools/composer-scan.git composer-scan
@@ -47,7 +45,7 @@ Options:
   --help        Show this message and exit.
 ```
 
-The WPVulnDB API key can be specified on the command line in an envrionment variable `WPVULNDB_API_TOKEN`. `-f` can be used to specify the file to scan, if not used `composer.lock` in the currnet directory will be used
+The WPScan Vulnerability Database API key can be specified on the command line in an envrionment variable `WPVULNDB_API_TOKEN`. `-f` can be used to specify the file to scan, if not used `composer.lock` in the currnet directory will be used.
 
 ```:bash
 > export WPVULNDB_API_TOKEN="api_token"
