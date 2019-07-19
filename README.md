@@ -2,7 +2,7 @@
 
 > Scan composer.lock file to find vulnerable WordPress plugins/themes using https://wpvulndb.com/ api"
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![MIT License](https://img.shields.io/github/license/10up/composer-scan.svg)](https://github.com/10up/composer-scan/blob/master/LICENSE.md)
 
 ## Requirements
 
