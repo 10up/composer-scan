@@ -1,7 +1,8 @@
-
 # WordPress Composer Scan
 
-Scan composer.lock file to find vulnerable WordPress plugins/themes using https://wpvulndb.com/ api"
+> Scan composer.lock file to find vulnerable WordPress plugins/themes using https://wpvulndb.com/ api"
+
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
 
 ## Requirements
 
@@ -52,3 +53,7 @@ The WPVulnDB API key can be specified on the command line in an envrionment vari
 > export WPVULNDB_API_TOKEN="api_token"
 > composer-scan -f ~/wp-local-docker-sites/mysite/wordpress/wp-content/composer.lock
 ```
+
+## Support Level
+
+**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.
