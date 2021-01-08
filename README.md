@@ -52,3 +52,7 @@ The WPVulnDB API key can be specified on the command line in an envrionment vari
 > export WPVULNDB_API_TOKEN="api_token"
 > composer-scan -f ~/wp-local-docker-sites/mysite/wordpress/wp-content/composer.lock
 ```
+
+## Like what you see?
+
+<a href="http://10up.com/contact/"><img src="https://10up.com/uploads/2016/10/10up-Github-Banner.png" width="850" alt="Work with us at 10up"></a>
