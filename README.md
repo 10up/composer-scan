@@ -23,7 +23,7 @@ Clone this repo and install with pip
 ```:bash
 git clone git@gitlab.10up.com:10up-systems/ci-tools/composer-scan.git composer-scan
 cd composer-scan
-pip install .   ## installs the python package in the currnet directory
+pip install .   ## installs the python package in the current directory
 ```
 
 ## Usage
@@ -41,12 +41,12 @@ Options:
                 outputs found vulnerabilities
   --no-fail     even if vulnerabilities are found, exit 0 (emergency option to
                 not fail CI pipelines)
-  --token TEXT  WPVulnDB api token or set as envrionment variable:
+  --token TEXT  WPVulnDB api token or set as environment variable:
                 WPVULNDB_API_TOKEN  [required]
   --help        Show this message and exit.
 ```
 
-The WPVulnDB API key can be specified on the command line in an envrionment variable `WPVULNDB_API_TOKEN`. `-f` can be used to specify the file to scan, if not used `composer.lock` in the currnet directory will be used
+The WPVulnDB API key can be specified on the command line in an envrionment variable `WPVULNDB_API_TOKEN`. `-f` can be used to specify the file to scan, if not used `composer.lock` in the current directory will be used
 
 ```:bash
 > export WPVULNDB_API_TOKEN="api_token"
