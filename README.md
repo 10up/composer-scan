@@ -22,7 +22,7 @@ Clone this repo and install with pip:
 ```:bash
 git clone https://github.com/10up/composer-scan.git composer-scan
 cd composer-scan
-pip install .   ## installs the python package in the currnet directory
+pip install .   ## installs the python package in the current directory
 ```
 
 ## Usage
